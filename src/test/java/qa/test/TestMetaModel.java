@@ -1,37 +1,45 @@
 package qa.test;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.DataContextFactory;
 import org.apache.metamodel.data.DataSet;
 import org.apache.metamodel.data.Row;
 import org.apache.metamodel.excel.ExcelConfiguration;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.SimpleLogger;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.google.common.base.Joiner;
+
 public class TestMetaModel {
 	
-	public static File input = new File("src/test/resources/Test.xls");
-	private static Logger logger = LogManager.getLogger( "TestMetaModel" );
+	private File input = new File("src/test/resources/Test.xls");
+    private org.slf4j.Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
+	
+	@BeforeTest
+	private void setUp() {
+		System.setProperty( SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+		logger.info("------------------------------");
+	}
 
 	@Test( dataProvider = "dp" )
 	public void testMethod( Row testRow ) {
 		Object[] rowVals = testRow.getValues();
-        for ( int i = 0; i < rowVals.length; i++ ) {
-        	System.out.print( rowVals[i] + ", " );        	
-        }
-        System.out.println();
+		String aRow = Joiner.on("'").join( rowVals );
+		logger.info( aRow );        	
 	}
 
 	@DataProvider( name = "dp" ) 
 	public Object[][] gatherData() 
 	{		
-		logger.info("Running dataprovider.");
+		logger.info("#################################");
+		logger.info("## Data Provider: dp           ##");
 		ExcelConfiguration conf = new ExcelConfiguration();
 		conf.isSkipEmptyLines();
 		DataContext dataContext = DataContextFactory.createExcelDataContext( input, conf );
@@ -42,16 +50,19 @@ public class TestMetaModel {
 				.and("role").eq("member")
 				.execute();
 		List<Row> rows = dataSet.toRows();
-		System.out.println("Size: " + rows.size() );
 		Object[][] myArray = new Object[rows.size()][1];
 		int i = 0;
 		for ( Row r : rows ) {
-			System.out.println( Arrays.deepToString( r.getValues() ) );
 			myArray[i][0] = r;
 			i++;
 		}
-		System.out.println( Arrays.deepToString( myArray ) );
+		logger.info("#################################");
 		return myArray;
-	} 
+	}
+	
+	@AfterTest
+	private void cleanUp() {
+		logger.info("------------------------------");
+	}
 
 }
