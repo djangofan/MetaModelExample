@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="0" name="Failed suite [Test Suite MetaModel]">
+  <test name="Regression1(failed)">
+    <classes>
+      <class name="qa.test.TestMetaModel">
+        <methods>
+          <include name="testMethod" invocation-numbers="0 1 2 3 4 5"/>
+        </methods>
+      </class> <!-- qa.test.TestMetaModel -->
+    </classes>
+  </test> <!-- Regression1(failed) -->
+</suite> <!-- Failed suite [Test Suite MetaModel] -->
