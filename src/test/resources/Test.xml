@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<organization type="governmental">
+		<name>Company A</name>
+		<employees>
+			<employee>
+				<name>John Doe</name>
+				<gender>M</gender>
+			</employee>
+			<employee>
+				<name>Jane Doe</name>
+				<gender>F</gender>
+			</employee>
+		</employees>
+	</organization>
+	<organization type="company">
+		<name>Company B</name>
+		<employees>
+			<employee>
+				<name>Peter</name>
+				<gender>M</gender>
+			</employee>
+			<employee>
+				<name>Bob</name>
+				<gender>M</gender>
+			</employee>
+		</employees>
+	</organization>
+</root>
