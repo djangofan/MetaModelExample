@@ -2,6 +2,9 @@
 ## Eclipse
 #################
 
+test-output/
+target/
+
 *.pydevproject
 .project
 .metadata
