@@ -3,6 +3,8 @@ MetaModelExample
 
 Example of using MetaModel API in TestNG DataProvider.
 
+    http://metamodel.incubator.apache.org/
+
 ##### Maven dependency
 ```
 <dependency>
