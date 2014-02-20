@@ -1,11 +1,18 @@
 MetaModelExample
 ================
 
-Example of using MetaModel API in TestNG DataProvider.
+Example of using MetaModel API in TestNG DataProvider.   Uses a SQL query API supplied by MetaModel to build the 2D array returned by the DataProvider method.
 
-    http://metamodel.incubator.apache.org/
+Three examples that include:
+1. A DataProvider that reads data from a Excel .XLS or .XLSX file.
+2. A DataProvider that reads data from a CSV file.
+3. A DataProvider that reads data from a XML file.
+
+http://metamodel.incubator.apache.org/
 
 ##### Maven dependency
+
+Requires the following dependency in your pom.xml file.
 ```
 <dependency>
     <groupId>org.eobjects.metamodel</groupId>
@@ -14,4 +21,4 @@ Example of using MetaModel API in TestNG DataProvider.
 </dependency>
 ```
 
-##### Other
+
