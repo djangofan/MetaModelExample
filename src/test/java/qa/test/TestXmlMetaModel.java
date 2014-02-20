@@ -23,14 +23,14 @@ public class TestXmlMetaModel {
 	@Test
 	public void testXML() {
 		
-		XmlSaxTableDef employeeOrgTableDef = new XmlSaxTableDef(
-		        "/root/organization/employees/employee",
-		        new String[] {
-		                "/root/organization/employees/employee/name",
-		                "/root/organization/employees/employee/gender",
-		                "index(/root/organization)"
-		        }
-		);
+		//XmlSaxTableDef employeeOrgTableDef = new XmlSaxTableDef(
+		//        "/root/organization/employees/employee",
+		//        new String[] {
+		//                "/root/organization/employees/employee/name",
+		//                "/root/organization/employees/employee/gender",
+		//                "index(/root/organization)"
+		//        }
+		//);
 		
 		XmlSaxTableDef employeeTableDef = new XmlSaxTableDef(
 		        "/root/organization/employees/employee",
@@ -48,20 +48,20 @@ public class TestXmlMetaModel {
 		        }
 		);
 
-		DataContext dc = new XmlSaxDataContext( xmlFile, employeeOrgTableDef, employeeTableDef, organizationTableDef );
+		DataContext dc = new XmlSaxDataContext( xmlFile, employeeTableDef, organizationTableDef );
 		
 		Table employeeTable = dc.getTableByQualifiedLabel( "company" );
-		Table organizationTable = dc.getTableByQualifiedLabel( "governmental" );
-
 		Column fk = employeeTable.getColumnByName("index(/root/organization)");
 		Column empName = employeeTable.getColumnByName("/name");
+		
+		Table organizationTable = dc.getTableByQualifiedLabel( "governmental" );
 		Column orgId = organizationTable.getColumnByName("row_id");
 		Column orgName = organizationTable.getColumnByName("/name");
 
-		Query q = dc.query().from(employeeTable)
-		        .innerJoin(organizationTable).on(fk, orgId)
-		        .select(empName).as("employee")
-		        .select(orgName).as("company").toQuery();
+		Query q = dc.query().from( employeeTable )
+		        .innerJoin( organizationTable ).on( fk, orgId )
+		        .select( empName ).as( "employee" )
+		        .select( orgName ).as( "company" ).toQuery();
 		DataSet ds = dc.executeQuery(q);
 		
 		List<Row> rows = ds.toRows();

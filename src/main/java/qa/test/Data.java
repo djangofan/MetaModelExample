@@ -6,14 +6,11 @@ import java.util.List;
 
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.DataContextFactory;
-import org.apache.metamodel.UpdateableDataContext;
 import org.apache.metamodel.csv.CsvConfiguration;
-import org.apache.metamodel.csv.CsvDataContext;
 import org.apache.metamodel.data.DataSet;
 import org.apache.metamodel.data.Row;
 import org.apache.metamodel.excel.ExcelConfiguration;
 import org.apache.metamodel.query.SelectItem;
-import org.apache.metamodel.query.builder.InitFromBuilder;
 import org.apache.metamodel.schema.Schema;
 import org.apache.metamodel.schema.Table;
 import org.slf4j.LoggerFactory;
@@ -55,14 +52,14 @@ public class Data {
 		DataContext csvContext = DataContextFactory.createCsvDataContext( csvFile, conf );
 		Schema schema = csvContext.getDefaultSchema();
 		Table[] tables = schema.getTables();
-		Table table = tables[0];
+		Table table = tables[0]; // a representation of the csv file name including extension
 		DataSet dataSet = csvContext.query()
 				.from( table )
 				.selectAll()
 				.where("run").eq("Y")
 				.execute();
 		List<Row> rows = dataSet.toRows();
-		Object[][] myArray = new Object[10][2];
+		Object[][] myArray = new Object[rows.size()][2];
 		int i = 0;
 		SelectItem[] cols = rows.get(0).getSelectItems();
 		for ( Row r : rows ) {

@@ -1,6 +1,7 @@
 package qa.test;
 
 import java.io.File;
+
 import org.apache.metamodel.query.SelectItem;
 import org.slf4j.LoggerFactory;
 import org.slf4j.impl.SimpleLogger;
@@ -13,7 +14,7 @@ import com.google.common.base.Joiner;
 
 public class TestCsvMetaModel {
 	
-	private File input = new File("src/test/resources/Test.csv");
+	private static File csvInput = new File("src/test/resources/Test.csv");
     private org.slf4j.Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 	
 	@BeforeTest
@@ -25,13 +26,13 @@ public class TestCsvMetaModel {
 	@Test( dataProvider = "csv" )
 	public void testCsv( SelectItem[] cols, Object[] data ) {
 		String aRow = Joiner.on("|").join( data );
-		logger.info( aRow );        	
+		logger.info( aRow );  
 	}
 
 	@DataProvider( name = "csv" ) 
-	public Object[][] gatherData() 
+	public Object[][] gatherCsvData() 
 	{
-		return Data.getCsvData( input );
+		return Data.getCsvData( csvInput );
 	}
 	
 	@AfterTest

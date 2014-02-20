@@ -13,7 +13,7 @@ import com.google.common.base.Joiner;
 
 public class TestExcelMetaModel {
 	
-	private File input = new File("src/test/resources/Test.xls");
+	private static File xlsInput = new File("src/test/resources/Test.xls");
     private org.slf4j.Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 	
 	@BeforeTest
@@ -29,9 +29,9 @@ public class TestExcelMetaModel {
 	}
 
 	@DataProvider( name = "excel" ) 
-	public Object[][] gatherData() 
+	public Object[][] gatherExcelData() 
 	{
-		return Data.getExcelData( input, "DP" );
+		return Data.getExcelData( xlsInput, "DP" );
 	}
 	
 	@AfterTest
