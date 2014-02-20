@@ -1,7 +1,7 @@
 MetaModelExample
 ================
 
-Example of using the Apache Incubator MetaModel API in TestNG DataProvider.   Uses a SQL query API supplied by MetaModel to build the 2D array returned by the DataProvider method.
+Example of using the Apache Incubator [MetaModel API](http://metamodel.incubator.apache.org/) in TestNG DataProvider.   Uses a SQL query API supplied by MetaModel to build the 2D array returned by the DataProvider method.
 
 Three examples that include:
 
@@ -9,7 +9,7 @@ Three examples that include:
 2. A DataProvider that reads data from a CSV file.
 3. A DataProvider that reads data from a XML file.
 
-http://metamodel.incubator.apache.org/
+
 
 ##### Maven dependency
 
