@@ -4,9 +4,10 @@ MetaModelExample
 Example of using MetaModel API in TestNG DataProvider.   Uses a SQL query API supplied by MetaModel to build the 2D array returned by the DataProvider method.
 
 Three examples that include:
-#. A DataProvider that reads data from a Excel .XLS or .XLSX file.
-#. A DataProvider that reads data from a CSV file.
-#. A DataProvider that reads data from a XML file.
+
+1. A DataProvider that reads data from a Excel .XLS or .XLSX file.
+2. A DataProvider that reads data from a CSV file.
+3. A DataProvider that reads data from a XML file.
 
 http://metamodel.incubator.apache.org/
 
