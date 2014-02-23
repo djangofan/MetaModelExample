@@ -30,7 +30,7 @@ public class Data {
 		ExcelConfiguration conf = new ExcelConfiguration( 1, true, false );
 		DataContext dataContext = DataContextFactory.createExcelDataContext( excelFile, conf );
 		DataSet dataSet = dataContext.query()
-				.from("DP")
+				.from( sheetName )
 				.selectAll()
 				.where("run").eq("Y")
 				.execute();
