@@ -19,6 +19,8 @@ import org.apache.metamodel.xml.XmlSaxDataContext;
 import org.apache.metamodel.xml.XmlSaxTableDef;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
+
 public class Data {
 
 	private static org.slf4j.Logger logger = LoggerFactory.getLogger( "Data" );
@@ -78,9 +80,9 @@ public class Data {
 	}
 	
 	//TODO Could enhance this to take a varargs of table def objects into the XmlSaxDataContext
-	//Example: http://metamodel.eobjects.org/example_xml_mapping.html
 	public static Object[][] getXmlData( File xmlFile ) 
 	{
+		//Example: http://metamodel.eobjects.org/example_xml_mapping.html
 		XmlSaxTableDef employeeTableDef = new XmlSaxTableDef(
                 "/root/organization/employees/employee", new String[] {
                         "/root/organization/employees/employee/name",
@@ -112,6 +114,26 @@ public class Data {
         List<Row> rows = ds.toRows();
         Object[][] myArray = get2ArgArrayFromRows( rows );
 		return myArray;
+	}
+	
+	/**
+	 * Example of simply printing contents of a table.
+	 * @param xmlFile
+	 * @param def
+	 */
+	public static void printTableAsDefined( File xmlFile, XmlSaxTableDef def ) {
+		logger.info("Printing table contents as defined: ");
+		DataContext dc = new XmlSaxDataContext( xmlFile, def );
+		Table employeeTable = dc.getTableByQualifiedLabel("/employee");
+        Query q = dc.query().from( employeeTable )
+                .selectAll()
+                .toQuery();
+        DataSet ds = dc.executeQuery(q);
+        List<Row> rows = ds.toRows();
+        for ( Row r : rows ) {
+            String aRow = Joiner.on("|").join( r.getValues() );
+            logger.info( aRow );
+        }
 	}
 
 }
