@@ -14,7 +14,7 @@ import com.google.common.base.Joiner;
 
 public class TestCsvMetaModel {
 	
-	private static File csvInput = new File("src/test/resources/Test.csv");
+	private static File csvFile = new File("src/test/resources/Test.csv");
     private org.slf4j.Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 	
 	@BeforeTest
@@ -32,7 +32,7 @@ public class TestCsvMetaModel {
 	@DataProvider( name = "csv" ) 
 	public Object[][] gatherCsvData() 
 	{
-		return Data.getCsvData( csvInput );
+		return Data.getCsvData( csvFile );
 	}
 	
 	@AfterTest

@@ -1,60 +1,43 @@
 package qa.test;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
-import org.apache.metamodel.DataContext;
-import org.apache.metamodel.data.DataSet;
-import org.apache.metamodel.data.Row;
-import org.apache.metamodel.query.Query;
-import org.apache.metamodel.schema.Column;
-import org.apache.metamodel.schema.Table;
-import org.apache.metamodel.xml.XmlSaxDataContext;
-import org.apache.metamodel.xml.XmlSaxTableDef;
+import org.apache.metamodel.query.SelectItem;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.SimpleLogger;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.google.common.base.Joiner;
 
 public class TestXmlMetaModel {
 	
 	File xmlFile = new File("src/test/resources/Test.xml");
+	private org.slf4j.Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 	
-	// http://metamodel.eobjects.org/example_xml_mapping.html
+	@BeforeTest
+	private void setUp() {
+		System.setProperty( SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+		logger.info("------------------------------");
+	}
+
+	@Test( dataProvider = "xml" )
+	public void testXML( SelectItem[] cols, Object[] data ) {
+		String aRow = Joiner.on("|").join( data );
+		logger.info( aRow ); 		
+	}
 	
-	@Test
-	public void testXML() {
-		
-		XmlSaxTableDef employeeTableDef = new XmlSaxTableDef(
-                "/root/organization/employees/employee", new String[] {
-                        "/root/organization/employees/employee/name",
-                        "/root/organization/employees/employee/gender",
-                        "index(/root/organization)"});
-
-        XmlSaxTableDef organizationTableDef = new XmlSaxTableDef(
-                "/root/organization", new String[] { 
-                        "/root/organization/name",
-                        "/root/organization@type" });
-
-        DataContext dc = new XmlSaxDataContext(xmlFile, employeeTableDef,
-                organizationTableDef);
-
-        Table employeeTable = dc.getTableByQualifiedLabel("/employee");
-        Column fk = employeeTable.getColumnByName("index(/root/organization)");
-        Column empName = employeeTable.getColumnByName("/name");
-
-        Table organizationTable = dc.getTableByQualifiedLabel("/organization");
-        Column orgId = organizationTable.getColumnByName("row_id");
-        Column orgName = organizationTable.getColumnByName("/name");
-        Query q = dc.query().from(employeeTable)
-                .innerJoin(organizationTable).on( fk, orgId )
-                .select(empName).as("employeename")
-                .select(orgName).as("companyname").toQuery();
-        DataSet ds = dc.executeQuery(q);
-
-        List<Row> rows = ds.toRows();
-        for (Row r : rows) {
-            System.out.println(Arrays.deepToString(r.getValues()));
-        }		
-		
+	@DataProvider( name = "xml" ) 
+	public Object[][] gatherCsvData() 
+	{
+		return Data.getXmlData( xmlFile );
+	}
+	
+	@AfterTest
+	private void cleanUp() {
+		logger.info("------------------------------");
 	}
 
 }
