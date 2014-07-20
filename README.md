@@ -15,10 +15,10 @@ Three examples that include:
 
 Requires the following dependency in your pom.xml file.
 ```
-<dependency>
-    <groupId>org.eobjects.metamodel</groupId>
-    <artifactId>MetaModel</artifactId>
-    <version>3.4.9</version>
+	<dependency>
+<groupId>org.apache.metamodel</groupId>
+<artifactId>MetaModel-full</artifactId>
+<version>4.0.0-incubating</version>
 </dependency>
 ```
 
