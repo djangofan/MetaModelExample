@@ -7,7 +7,7 @@
 	<properties>
 		<selenium.version>2.39.0</selenium.version>
 		<maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
-		<testng.version>6.8.7</testng.version>
+		<testng.version>6.8.21</testng.version>
 	</properties>
 	<build>
 		<directory>target</directory>
@@ -57,10 +57,10 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.metamodel</groupId>
-			<artifactId>MetaModel-full</artifactId>
-			<version>4.0.0-incubating</version>
-		</dependency>
+	                <groupId>org.apache.metamodel</groupId>
+	                <artifactId>MetaModel-full</artifactId>
+	                <version>4.3.2</version>
+                </dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
