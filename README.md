@@ -16,9 +16,9 @@ Three examples that include:
 Requires the following dependency in your pom.xml file.
 ```
 	<dependency>
-<groupId>org.apache.metamodel</groupId>
-<artifactId>MetaModel-full</artifactId>
-<version>4.0.0-incubating</version>
+	<groupId>org.apache.metamodel</groupId>
+	<artifactId>MetaModel-full</artifactId>
+	<version>4.3.2</version>
 </dependency>
 ```
 
